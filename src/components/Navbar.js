@@ -1,13 +1,14 @@
 import ProfileLink from './ProfileLink'
+import Menu from './Menu'
 
 const Navbar = () => {
     return (
       
         <nav className="text-center">
-         
-       
-          
+        <Menu/>
 
+
+         {/* DRAG AND DROP */}
           <button class="bg-gradient-to-r from-sky-500 to-blue-500  hover:from-sky-400 hover:to-blue-400 hover:text-red-50 text-violet-100 font-bold py-2 px-4 rounded inline-flex items-center m-1 border border-violet-200 hover:border-blue-400 hover:shadow-lg">
             <svg width="48px" height="48px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7 10.5L4.99591 13.1721C4.41845 13.9421 4.47127 15.0141 5.1216 15.7236L8.9055 19.8515C9.28432 20.2647 9.81826 20.5 10.3789 20.5C11.4651 20.5 13.2415 20.5 15 20.5C17.4 20.5 19 19 19 16.5C19 16.5 19 16.5 19 16.5C19 16.5 19 9.64287 19 7.92859" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -20,6 +21,7 @@ const Navbar = () => {
             <span>Drag And Drop</span>
           </button>
           
+          {/* MULTIPLE CHOICE */}
           <button class="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400  hover:shadow-lg hover:text-red-50 text-violet-100 font-bold py-2 px-4 rounded inline-flex items-center m-1 border border-violet-200 hover:border-teal-400">
             <svg width="48px" height="48px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M8 42H32C33.1046 42 34 41.1046 34 40V8C34 6.89543 33.1046 6 32 6H8C6.89543 6 6 6.89543 6 8V40C6 41.1046 6.89543 42 8 42ZM32 44H8C5.79086 44 4 42.2091 4 40V8C4 5.79086 5.79086 4 8 4H32C34.2091 4 36 5.79086 36 8V40C36 42.2091 34.2091 44 32 44Z" fill="currentColor"/>
@@ -34,7 +36,8 @@ const Navbar = () => {
             </svg>
             <span className="pl-1">Multiple Choice</span>
           </button>
-
+          
+          {/* FILL IN THE BLANK */}
           <button class="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-400 hover:to-orange-400 hover:text-red-50 hover:shadow-lg text-violet-100 font-bold py-2 px-4 rounded inline-flex items-center m-1  border border-violet-200 hover:border-red-400">
             <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               width="24px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 64 64" xmlSpace="preserve">
@@ -68,9 +71,9 @@ const Navbar = () => {
             </svg>
             <span className="pl-2">Fill In The Blank</span>
           </button>
-          <button className="absolute right-10 m-2">
-          <span><ProfileLink id="0"/></span>
-          </button>
+
+
+         
           
           
         </nav>
