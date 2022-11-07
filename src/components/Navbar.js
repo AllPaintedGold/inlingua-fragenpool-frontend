@@ -1,4 +1,4 @@
-import ProfileLink from './ProfileLink'
+
 import Menu from './Menu'
 
 const Navbar = () => {
@@ -6,7 +6,6 @@ const Navbar = () => {
       
         <nav className="text-center">
         <Menu/>
-
 
          {/* DRAG AND DROP */}
           <button class="bg-gradient-to-r from-sky-500 to-blue-500  hover:from-sky-400 hover:to-blue-400 hover:text-red-50 text-violet-100 font-bold py-2 px-4 rounded inline-flex items-center m-1 border border-violet-200 hover:border-blue-400 hover:shadow-lg">
