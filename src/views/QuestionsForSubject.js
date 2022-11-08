@@ -1,20 +1,17 @@
+
 import useSWR from 'swr'
-import {useSearchParams} from 'react-router-dom'
+
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-const QuestionForSubject = () =>
+const QuestionForSubject = ({subject}) =>
 {
-    const [searchParams, setSearchParams] = useSearchParams()
-     
-    const { data, error } = 
-    useSWR(`${process.env.REACT_APP_API_BASE_URL}/api/Question/GetQuestionsForSubject?subject=${searchParams.get('subject')}`, fetcher)
-
-    console.log(searchParams.get('subject'))
+  const { data , error} = 
+  useSWR(`https://localhost:7246/api/Question/GetQuestionsForSubject/string`, fetcher)
+      
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
    
-    if (error) return <div>Failed to load</div>
-    if (!data) return <div>Loading...</div>
-    console.log(data)
     const rows = data.map((e) => {
       return (
         <tr key={e.id} class="bg-white border-b bg-gray-800 border-gray-700">
@@ -31,7 +28,7 @@ const QuestionForSubject = () =>
 
     return (
      <div class=" shadow-md sm:rounded-lg">
-     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -51,7 +48,7 @@ const QuestionForSubject = () =>
         <tbody>
            {rows}
         </tbody>
-      </table>
+    </table>
       </div>
 
     )
