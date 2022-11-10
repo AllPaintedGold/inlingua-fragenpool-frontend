@@ -7,19 +7,20 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 const QuestionForSubject = ({subject}) =>
 {
   const { data , error} = 
-  useSWR(`https://localhost:7246/api/Question/GetQuestionsForSubject/string`, fetcher)
+  useSWR(`${process.env.REACT_APP_BASE_URL}/api/Question/GetQuestionsForSubject/string`, fetcher)
       
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
+   console.log(data)
    
-    const rows = data.map((e) => {
+    const rows = data.data.map((e) => {
       return (
-        <tr key={e.id} class="bg-white border-b bg-gray-800 border-gray-700">
-          <td  class="px-6 py-4">{e.CreatedBy}</td>
-          <td  class="px-6 py-4">{e.Subject}</td>
-          <td  class="px-6 py-4">{e.DateOfCreation}</td>
+        <tr key={e.id} class="border-t border-gray-400 text-xl" >
+          <td  class="px-6 py-4">{e.createdBy}</td>
+          <td  class="px-6 py-4">{e.subject}</td>
+          <td  class="px-6 py-4">{e.dateOfCreation}</td>
           <td class="px-6 py-4 text-right">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Detail</a>
+            <a href="/QuestionDetail" class="font-medium text-violet-200 bg-emerald-500 rounded-lg p-3 ">Detail</a>
           </td>
         </tr>
       )
@@ -27,9 +28,9 @@ const QuestionForSubject = ({subject}) =>
 
 
     return (
-     <div class=" shadow-md sm:rounded-lg">
-      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+     <div class=" shadow-md  m-5 p-0 border-8  ">
+      <table class="w-full text-sm text-left text-gray-500 table-auto ">
+         <thead class="text-xl uppercase  text-gray-600 ">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Created By
@@ -45,7 +46,7 @@ const QuestionForSubject = ({subject}) =>
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody >
            {rows}
         </tbody>
     </table>
