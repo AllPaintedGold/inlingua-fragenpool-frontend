@@ -11,17 +11,18 @@ import QuestionDetail from './views/QuestionDetail'
 
 function App() {
   return (
+    
     <Router >
       <Navbar/>
       <div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='*' element={<Error/>} />
-        <Route path='/QuestionsForSubject' element={<QuestionsForSubject/>}/>
+        <Route path='/QuestionsForSubject/:subject' element={<QuestionsForSubject/>}/>
         <Route path='/AddDragAndDrop' element={<AddDragAndDrop/>} />
         <Route path='/AddFillInTheBlank' element={<AddFillInTheBlank/>} />
         <Route path='/AddMultipleChoice' element={<AddMultipleChoice/>} />
-        <Route path='/QuestionDetail' element={<QuestionDetail/>} />
+        <Route path='/QuestionDetail/:id' element={<QuestionDetail/>} />
        
         
       </Routes>
