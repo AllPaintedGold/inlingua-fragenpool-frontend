@@ -8,7 +8,7 @@ const AddDragAndDrop = () => {
     
     const [questionParts, setQuestionParts] = useState([]) 
 
-    const handleClick = () => {
+    const handleAddPart = () => {
       let a = [] 
       a.push(document.getElementById('part').value)
       setQuestionParts(questionParts.concat(a))
@@ -35,7 +35,7 @@ const AddDragAndDrop = () => {
               </div>
               <textarea id="part" name="part" rows="6" cols="50" className=" ring ring-gray-400 p-5 text-gray-800 text-3xl font-bold rounded focus:outline-none italic" placeholder='write part to drag and drop here'></textarea>
               <div className="justify-center flex full-w">
-              <button type="submit" onClick={ handleClick } className="m-2  bg-red-500 text-white border border-red-800
+              <button type="submit" onClick={ handleAddPart} className="m-2  bg-red-500 text-white border border-red-800
                 focus:outline-none  hover:cursor-pointer 
                 font-bold py-2 px-4 rounded ml-5" >
                 Submit Question
