@@ -10,8 +10,11 @@ const AddFillInTheBlank = () => {
   const [createdBy, setCreatedBy] = useState() 
   const [subject, setSubject] = useState() 
   const [typeSpecifics, setTypeSpecifics] = useState([]) 
-  const [specifics, setSpecifics] = useState([])
+  const [typeSpecificsJSON, setTypeSpecificsJSON] = useState([])
     const [options, setOptions] = useState([])
+    const [optionsJSON, setOptionsJSON] = useState()
+    const [isAddingText, setIsAddingText] = useState(true)
+    
 
   const { data , error} = 
   useSWR(`${process.env.REACT_APP_BASE_URL}/api/Subject/GetAllSubjects`, fetcher)
@@ -33,7 +36,7 @@ const AddFillInTheBlank = () => {
       kindOfQuestion ,
       createdBy ,
       subject ,
-      typeSpecifics : specifics
+      typeSpecifics : typeSpecificsJSON
     }).then(res => console.log('Posting Data', res)).catch(err => console.log(err))
   }
 
@@ -43,32 +46,47 @@ const AddFillInTheBlank = () => {
       setTypeSpecifics(typeSpecifics.concat(a))
       document.getElementById('part').value = ""
       let b = Object.assign({},typeSpecifics)
-      setSpecifics(JSON.stringify(b))
+      setTypeSpecificsJSON(JSON.stringify(b))
+      setIsAddingText(false)
     }
     const AddOptionButton = () => {
         let a = [] 
         a.push(document.getElementById('option').value)
         setOptions(options.concat(a))
         document.getElementById('option').value = ""
-        console.log(`options: ${options.toString()}`)
+        let b = Object.assign({},options)
+        setOptionsJSON(JSON.stringify(b))
+        console.log(`options: ${options}`)
+        
     }
     const AddOptionsButton = () => {
-        
+        setIsAddingText(true)
+
     }
 
-    
-    return(
-        <div >
-            <div className="flex justify-center full-w m-10 text-2xl font-bold text-gray-800 italic">
-              { typeSpecifics } 
-            </div>
-        
-        <div class="md:flex md:items-center mb-6">
-            
+    const AddingOptions = () => {
+        return (
+            <div>
+            <div className="justify-center flex full-w">
+            <button type="button" onClick={ AddOptionsButton } className="m-2 
+              text-white hover:cursor-pointer  bg-indigo-500 border border-indigo-600
+              font-bold py-2 px-4 rounded ml-5" >
+              Add Options
+            </button>
+            <button type="button" onClick={ AddOptionButton } className="m-2 
+              text-white hover:cursor-pointer  bg-indigo-500 border border-indigo-600
+              font-bold py-2 px-4 rounded ml-5" >
+              Add Option
+            </button>
           </div>
-          <div class=" p-5 flex  justify-center">
-            <form action="/">
-              <div className="justify-center flex full-w">
+          <textarea id="option" name="part" rows="6" cols="50" className=" ring ring-gray-400 p-5 text-gray-800 text-3xl font-bold rounded focus:outline-none italic" placeholder='write part to drag and drop here'></textarea>
+          </div>
+        )
+    }
+    const AddingText = () => {
+        return (
+            <div>
+                <div className="justify-center flex full-w">
                 <button type="button" onClick={ AddTextButton } className="m-2 
                   text-white hover:cursor-pointer  bg-emerald-500 border border-emerald-600
                   font-bold py-2 px-4 rounded ml-5" >
@@ -76,19 +94,24 @@ const AddFillInTheBlank = () => {
                 </button>
               </div>
               <textarea id="part" name="part" rows="6" cols="50" className=" ring ring-gray-400 p-5 text-gray-800 text-3xl font-bold rounded focus:outline-none italic" placeholder='write part to drag and drop here'></textarea>
-              <div className="justify-center flex full-w">
-                <button type="button" onClick={ console.log("hui")} className="m-2 
-                  text-white hover:cursor-pointer  bg-emerald-500 border border-emerald-600
-                  font-bold py-2 px-4 rounded ml-5" >
-                  Add Options
-                </button>
-                <button type="button" onClick={ AddOptionButton } className="m-2 
-                  text-white hover:cursor-pointer  bg-emerald-500 border border-emerald-600
-                  font-bold py-2 px-4 rounded ml-5" >
-                  Add Option
-                </button>
-              </div>
-              <textarea id="option" name="part" rows="6" cols="50" className=" ring ring-gray-400 p-5 text-gray-800 text-3xl font-bold rounded focus:outline-none italic" placeholder='write part to drag and drop here'></textarea>
+            </div>
+        )
+    }
+
+
+ 
+    
+    return(
+        <div >
+            <div className="flex justify-center full-w m-10 text-2xl font-bold text-gray-800 italic">
+              { options } 
+            </div>
+        
+        <div class="md:flex md:items-center mb-6">
+          </div>
+          <div class=" p-5 flex  justify-center">
+            <form action="/">    
+                {isAddingText? AddingText() : AddingOptions()}
               <div class="md:flex md:items-center mb-6">
               <div class="md:w-1/3 m-5">
                 <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4 italic" htmlFor="kindOfQuestion">
