@@ -68,12 +68,30 @@ const AddFillInTheBlank = () => {
     const AddOptionsButton = () => {
       if(options == null) return 
       
-      setOptionsJSON([])
+      
       console.log(typeSpecificsJSON)
 
 
       setIsAddingText(true)
 
+    }
+
+    
+
+    const preview = () => {
+      let a = []
+      for(let i = 0; i < typeSpecifics.length; i++)
+      {
+        a[i] = <div>{typeSpecifics[i]}</div>;
+        a[i+1] = 
+          <select type="text">
+            {options[i].map(e => <option>{e}</option>)}
+          </select>;
+        
+
+        
+      }
+      
     }
 
     const AddingOptions = () => {
