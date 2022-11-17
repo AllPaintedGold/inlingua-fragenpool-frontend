@@ -9,11 +9,14 @@ const AddFillInTheBlank = () => {
   const [kindOfQuestion, setKindOfQuestion] = useState() 
   const [createdBy, setCreatedBy] = useState() 
   const [subject, setSubject] = useState() 
+  
   const [typeSpecifics, setTypeSpecifics] = useState([]) 
   const [typeSpecificsJSON, setTypeSpecificsJSON] = useState([])
-    const [options, setOptions] = useState([])
-    const [optionsJSON, setOptionsJSON] = useState()
-    const [isAddingText, setIsAddingText] = useState(true)
+  
+  const [options, setOptions] = useState([])
+  const [optionsJSON, setOptionsJSON] = useState()
+  
+  const [isAddingText, setIsAddingText] = useState(true)
     
 
   const { data , error} = 
@@ -41,6 +44,7 @@ const AddFillInTheBlank = () => {
   }
 
     const AddTextButton = () => {
+      if(document.getElementById('part').value == "") return 
       let a = [] 
       a.push(document.getElementById('part').value)
       setTypeSpecifics(typeSpecifics.concat(a))
@@ -48,19 +52,27 @@ const AddFillInTheBlank = () => {
       let b = Object.assign({},typeSpecifics)
       setTypeSpecificsJSON(JSON.stringify(b))
       setIsAddingText(false)
+      console.log(`text ${ typeSpecifics }`)
     }
     const AddOptionButton = () => {
-        let a = [] 
-        a.push(document.getElementById('option').value)
-        setOptions(options.concat(a))
-        document.getElementById('option').value = ""
-        let b = Object.assign({},options)
-        setOptionsJSON(JSON.stringify(b))
-        console.log(`options: ${options}`)
+      if(document.getElementById('option').value == "") return 
+      let a = [] 
+      a.push(document.getElementById('option').value)
+      setOptions(options.concat(a))
+      document.getElementById('option').value = ""
+      let b = Object.assign({},options)
+      setOptionsJSON(JSON.stringify(b))
+      console.log(`options: ${options}`)
         
     }
     const AddOptionsButton = () => {
-        setIsAddingText(true)
+      if(options == null) return 
+      
+      setOptionsJSON([])
+      console.log(typeSpecificsJSON)
+
+
+      setIsAddingText(true)
 
     }
 
@@ -104,7 +116,7 @@ const AddFillInTheBlank = () => {
     return(
         <div >
             <div className="flex justify-center full-w m-10 text-2xl font-bold text-gray-800 italic">
-              { options } 
+              { typeSpecifics } 
             </div>
         
         <div class="md:flex md:items-center mb-6">
