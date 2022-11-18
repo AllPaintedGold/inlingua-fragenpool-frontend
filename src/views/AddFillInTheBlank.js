@@ -17,14 +17,15 @@ const AddFillInTheBlank = () => {
   const [optionsJSON, setOptionsJSON] = useState()
   
   const [isAddingText, setIsAddingText] = useState(true)
-    
-
-  const { data , error} = 
-  useSWR(`${process.env.REACT_APP_BASE_URL}/api/Subject/GetAllSubjects`, fetcher)
+  
+  const [blankOptions, setBlankOptions] = useState([])
+  
+  const { data , error} = useSWR(`${process.env.REACT_APP_BASE_URL}/api/Subject/GetAllSubjects`, fetcher)
       
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
-   console.log(data)
+  
+  
 
    const subjects = data.data.map((e) => {
     return (
@@ -44,7 +45,7 @@ const AddFillInTheBlank = () => {
   }
 
     const AddTextButton = () => {
-      if(document.getElementById('part').value == "") return 
+      if(document.getElementById('part').value === "") return 
       let a = [] 
       a.push(document.getElementById('part').value)
       setTypeSpecifics(typeSpecifics.concat(a))
@@ -52,27 +53,22 @@ const AddFillInTheBlank = () => {
       let b = Object.assign({},typeSpecifics)
       setTypeSpecificsJSON(JSON.stringify(b))
       setIsAddingText(false)
-      console.log(`text ${ typeSpecifics }`)
+      
     }
     const AddOptionButton = () => {
-      if(document.getElementById('option').value == "") return 
+      if(document.getElementById('option').value === "") return 
       let a = [] 
       a.push(document.getElementById('option').value)
-      setOptions(options.concat(a))
+      setBlankOptions(blankOptions.concat(a))
       document.getElementById('option').value = ""
-      let b = Object.assign({},options)
-      setOptionsJSON(JSON.stringify(b))
-      console.log(`options: ${options}`)
-        
+      
     }
     const AddOptionsButton = () => {
-      if(options == null) return 
-      
-      
-      console.log(typeSpecificsJSON)
-
-
-      setIsAddingText(true)
+      if(blankOptions.length === 0 ) return 
+      let a = [] 
+      a.push(blankOptions)
+      setBlankOptions(blankOptions.concat(a))
+      document.getElementById('option').value = ""
 
     }
 
@@ -134,7 +130,7 @@ const AddFillInTheBlank = () => {
     return(
         <div >
             <div className="flex justify-center full-w m-10 text-2xl font-bold text-gray-800 italic">
-              { typeSpecifics } 
+              { typeSpecifics } {blankOptions}
             </div>
         
         <div class="md:flex md:items-center mb-6">
