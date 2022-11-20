@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Axios from 'axios'
 import useSWR from 'swr'
+
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -9,25 +10,29 @@ const AddFillInTheBlank = () => {
   const [kindOfQuestion, setKindOfQuestion] = useState() 
   const [createdBy, setCreatedBy] = useState() 
   const [subject, setSubject] = useState() 
-  
-  const [typeSpecifics, setTypeSpecifics] = useState([]) 
-  const [typeSpecificsJSON, setTypeSpecificsJSON] = useState([])
+  const [text, setText] = useState([]) 
+  const [textJSON, setTextJSON] = useState([])
   
   const [options, setOptions] = useState([])
   const [optionsJSON, setOptionsJSON] = useState()
-  
   const [isAddingText, setIsAddingText] = useState(true)
+
+  const [newOptions, setNewOptions] = useState(true)
+  const [preview, setPreview] = useState([])
   
-  const [blankOptions, setBlankOptions] = useState([])
   
-  const { data , error} = useSWR(`${process.env.REACT_APP_BASE_URL}/api/Subject/GetAllSubjects`, fetcher)
-      
-  if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+ 
+  
+
   
   
 
-   const subjects = data.data.map((e) => {
+
+  const { data , error} = useSWR(`${process.env.REACT_APP_BASE_URL}/api/Subject/GetAllSubjects`, fetcher) 
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+
+  const subjects = data.data.map((e) => {
     return (
       <option key={e.id}>{e.name}</option>
     )
@@ -40,7 +45,7 @@ const AddFillInTheBlank = () => {
       kindOfQuestion ,
       createdBy ,
       subject ,
-      typeSpecifics : typeSpecificsJSON
+      typeSpecifics : textJSON
     }).then(res => console.log('Posting Data', res)).catch(err => console.log(err))
   }
 
@@ -48,46 +53,25 @@ const AddFillInTheBlank = () => {
       if(document.getElementById('part').value === "") return 
       let a = [] 
       a.push(document.getElementById('part').value)
-      setTypeSpecifics(typeSpecifics.concat(a))
+      setText(text.concat(a))
       document.getElementById('part').value = ""
-      let b = Object.assign({},typeSpecifics)
-      setTypeSpecificsJSON(JSON.stringify(b))
+      let b = Object.assign({},text)
+      setTextJSON(JSON.stringify(b))
       setIsAddingText(false)
-      
-    }
-    const AddOptionButton = () => {
-      if(document.getElementById('option').value === "") return 
-      let a = [] 
-      a.push(document.getElementById('option').value)
-      setBlankOptions(blankOptions.concat(a))
-      document.getElementById('option').value = ""
-      
-    }
-    const AddOptionsButton = () => {
-      if(blankOptions.length === 0 ) return 
-      let a = [] 
-      a.push(blankOptions)
-      setBlankOptions(blankOptions.concat(a))
-      document.getElementById('option').value = ""
-
+      console.log(`text ${JSON.stringify(text)}`)
     }
 
     
-
-    const preview = () => {
-      let a = []
-      for(let i = 0; i < typeSpecifics.length; i++)
-      {
-        a[i] = <div>{typeSpecifics[i]}</div>;
-        a[i+1] = 
-          <select type="text">
-            {options[i].map(e => <option>{e}</option>)}
-          </select>;
-        
-
-        
-      }
+    
+    const AddOptionButton = () => {
+      if(document.getElementById('option').value === "") return 
       
+      document.getElementById('option').value = ""
+    }
+    const AddOptionsButton = () => {
+      setIsAddingText(true)
+      
+      console.log(JSON.stringify(options))
     }
 
     const AddingOptions = () => {
@@ -114,7 +98,7 @@ const AddFillInTheBlank = () => {
             <div>
                 <div className="justify-center flex full-w">
                 <button type="button" onClick={ AddTextButton } className="m-2 
-                  text-white hover:cursor-pointer  bg-emerald-500 border border-emerald-600
+                  text-white hover:cursor-pointer  bg-gradient-to-r from-indigo-500 via-indigo-500 to-indigo-500 border border-indigo-600
                   font-bold py-2 px-4 rounded ml-5" >
                   Add Text
                 </button>
@@ -130,7 +114,7 @@ const AddFillInTheBlank = () => {
     return(
         <div >
             <div className="flex justify-center full-w m-10 text-2xl font-bold text-gray-800 italic">
-              { typeSpecifics } {blankOptions}
+              { preview } 
             </div>
         
         <div class="md:flex md:items-center mb-6">
@@ -138,6 +122,8 @@ const AddFillInTheBlank = () => {
           <div class=" p-5 flex  justify-center">
             <form action="/">    
                 {isAddingText? AddingText() : AddingOptions()}
+                {text}
+                {options}
               <div class="md:flex md:items-center mb-6">
               <div class="md:w-1/3 m-5">
                 <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4 italic" htmlFor="kindOfQuestion">
@@ -183,7 +169,7 @@ const AddFillInTheBlank = () => {
               </div>
               </div>
               <div className="justify-center flex full-w">
-              <button type="button" onClick= { SubmitQuestionButton }  className="m-2  bg-red-500 text-white border border-red-800
+              <button type="button" onClick= { SubmitQuestionButton }  className="m-2  bg-indigo-500 text-white border border-blue-800
                 focus:outline-none  hover:cursor-pointer 
                 font-bold py-2 px-4 rounded ml-5" >
                 Submit Question

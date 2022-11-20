@@ -4,7 +4,7 @@ import Menu from './Menu'
 const Navbar = () => {
     return (
       
-        <nav className="text-center">
+        <nav className="text-center bg-zinc-200 pb-1 pt-1">
         <Menu/>
 
          {/* DRAG AND DROP */}
@@ -25,7 +25,7 @@ const Navbar = () => {
           
           {/* MULTIPLE CHOICE */}
           <a href='AddMultipleChoice'>
-          <button className="bg-gradient-to-r from-yellow-600 to-amber-600  hover:shadow-inner hover:text-red-50 text-violet-100 font-bold py-2 px-4 rounded inline-flex items-center m-1 border border-amber-600">
+          <button className="bg-gradient-to-r from-sky-600 to-blue-500   hover:text-red-50 text-violet-100 font-bold py-2 px-4 rounded inline-flex items-center m-1 border border-sky-600">
             <svg width="48px" height="48px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" clipRule="evenodd" d="M8 42H32C33.1046 42 34 41.1046 34 40V8C34 6.89543 33.1046 6 32 6H8C6.89543 6 6 6.89543 6 8V40C6 41.1046 6.89543 42 8 42ZM32 44H8C5.79086 44 4 42.2091 4 40V8C4 5.79086 5.79086 4 8 4H32C34.2091 4 36 5.79086 36 8V40C36 42.2091 34.2091 44 32 44Z" fill="currentColor"/>
               <path fillRule="evenodd" clipRule="evenodd" d="M18 13C18 12.4477 18.4477 12 19 12H31C31.5523 12 32 12.4477 32 13C32 13.5523 31.5523 14 31 14H19C18.4477 14 18 13.5523 18 13Z" fill="currentColor"/>
@@ -43,7 +43,7 @@ const Navbar = () => {
           
           {/* FILL IN THE BLANK */}
           <a href='/AddFillInTheBlank'>
-          <button className="bg-gradient-to-r from-pink-500 to-rose-500  text-violet-100 font-bold py-2 px-4 rounded inline-flex items-center m-1  border border-rose-500 ">
+          <button className="bg-gradient-to-r from-sky-600 to-blue-500   hover:text-red-50 text-violet-100 font-bold py-2 px-4 rounded inline-flex items-center m-1 border border-sky-600">
             <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               width="24px" height="48px" viewBox="0 0 48 48" enableBackground="new 0 0 64 64" xmlSpace="preserve">
               <line fill="none" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" x1="22" y1="6" x2="64" y2="6"/>
